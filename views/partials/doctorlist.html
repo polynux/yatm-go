@@ -1,0 +1,31 @@
+{{define "doctorList"}}
+{{range .Doctors}}
+<div class="rounded-lg border bg-card text-card-foreground shadow-sm" data-v0-t="card">
+  <div class="flex-col space-y-1.5 flex items-center gap-4 p-4">
+    <div class="flex items-center gap-2">
+      <img src="/placeholder.svg" alt="Avatar" class="rounded-full" style="aspect-ratio: 32 / 32; object-fit: cover;"
+        width="32" height="32" />
+      <div class="grid gap-1">
+        <h3 class="font-semibold">{{.Name}}</h3>
+      </div>
+    </div>
+  </div>
+  <div class="p-4">
+    <div class="grid gap-2">
+      <p class="text-sm leading-none">
+        <span class="font-semibold">Specialty :</span> {{.Specialty}}
+      </p>
+      <p class="text-sm leading-none">
+        <span class="font-semibold">City :</span> {{.ZipCode}} {{.City}}
+      </p>
+      <p class="text-sm leading-none">
+        <span class="font-semibold">Email :</span> {{.Email}}
+      </p>
+      <p class="text-sm leading-none">
+        <span class="font-semibold">Description :</span> {{.Description}}
+      </p>
+    </div>
+  </div>
+</div>
+{{end}}
+{{end}}

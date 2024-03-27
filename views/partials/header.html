@@ -1,0 +1,33 @@
+{{define "header"}}
+<header class="border-b border-gray-200  flex items-center justify-between px-4 md:px-6 py-3">
+    <div class="container">
+        <nav class="flex items-center justify-between">
+            <a class="flex items-center space-x-2 font-semibold tracking-widest" href="/" hx-swap="transition:true">
+                {{svg "heart" "w-6 h-6 text-rose-600"}}
+                <span class="sr-only">Home</span>
+                Home
+            </a>
+            <div class="flex items-center space-x-4">
+                <form class="flex items-center space-x-2">
+                    {{svg "magnifying-glass" "w-6 h-6 text-gray-500"}}
+                    <input type="search"
+                        class="flex h-10 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-gray-500 file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 w-48 placeholder-gray-500 "
+                        placeholder="Rechercher" />
+                </form>
+                <button
+                    class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 shrink-0"
+                    type="button" id="radix-:R1rdafnnja:" aria-haspopup="menu" aria-expanded="false"
+                    data-state="closed">
+                    {{svg "funnel" "w-4 h-4 mr-2"}}
+                    Filter
+                </button>
+                <button type="button" aria-pressed="false" data-state="off"
+                    class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors hover:bg-muted hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-accent data-[state=on]:text-accent-foreground bg-transparent h-10 px-3 ml-4"
+                    aria-label="Toggle dark mode">
+                    {{svg "sun" "w-5 h-5 text-yellow-400"}}
+                </button>
+            </div>
+        </nav>
+    </div>
+</header>
+{{end}}

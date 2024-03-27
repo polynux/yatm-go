@@ -1,0 +1,17 @@
+{
+  "name": "yatm-go",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "watch": "tailwindcss -i static/style_dev.css -o static/style.css --watch",
+    "build": "tailwindcss -i static/style_dev.css -o build/static/style.css --minify"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "daisyui": "^4.8.0",
+    "tailwindcss": "^3.4.1"
+  }
+}
