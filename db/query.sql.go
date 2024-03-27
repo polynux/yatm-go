@@ -9,6 +9,69 @@ import (
 	"context"
 )
 
+const getAllPraticiens = `-- name: GetAllPraticiens :many
+SELECT id, name, firstname, address, zip, city, description, profession FROM Praticiens
+`
+
+func (q *Queries) GetAllPraticiens(ctx context.Context) ([]Praticien, error) {
+	rows, err := q.db.QueryContext(ctx, getAllPraticiens)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []Praticien
+	for rows.Next() {
+		var i Praticien
+		if err := rows.Scan(
+			&i.ID,
+			&i.Name,
+			&i.Firstname,
+			&i.Address,
+			&i.Zip,
+			&i.City,
+			&i.Description,
+			&i.Profession,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const getAllProfessions = `-- name: GetAllProfessions :many
+SELECT DISTINCT profession FROM Praticiens
+`
+
+func (q *Queries) GetAllProfessions(ctx context.Context) ([]string, error) {
+	rows, err := q.db.QueryContext(ctx, getAllProfessions)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []string
+	for rows.Next() {
+		var profession string
+		if err := rows.Scan(&profession); err != nil {
+			return nil, err
+		}
+		items = append(items, profession)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const getPraticien = `-- name: GetPraticien :one
 SELECT id, name, firstname, address, zip, city, description, profession FROM Praticiens WHERE id = ?
 `
@@ -30,11 +93,52 @@ func (q *Queries) GetPraticien(ctx context.Context, id int64) (Praticien, error)
 }
 
 const getPraticiens = `-- name: GetPraticiens :many
-SELECT id, name, firstname, address, zip, city, description, profession FROM Praticiens
+SELECT id, name, firstname, address, zip, city, description, profession FROM Praticiens LIMIT ? OFFSET ?
 `
 
-func (q *Queries) GetPraticiens(ctx context.Context) ([]Praticien, error) {
-	rows, err := q.db.QueryContext(ctx, getPraticiens)
+type GetPraticiensParams struct {
+	Limit  int64
+	Offset int64
+}
+
+func (q *Queries) GetPraticiens(ctx context.Context, arg GetPraticiensParams) ([]Praticien, error) {
+	rows, err := q.db.QueryContext(ctx, getPraticiens, arg.Limit, arg.Offset)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []Praticien
+	for rows.Next() {
+		var i Praticien
+		if err := rows.Scan(
+			&i.ID,
+			&i.Name,
+			&i.Firstname,
+			&i.Address,
+			&i.Zip,
+			&i.City,
+			&i.Description,
+			&i.Profession,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const getPraticiensByProfession = `-- name: GetPraticiensByProfession :many
+SELECT id, name, firstname, address, zip, city, description, profession FROM Praticiens WHERE profession = ?
+`
+
+func (q *Queries) GetPraticiensByProfession(ctx context.Context, profession string) ([]Praticien, error) {
+	rows, err := q.db.QueryContext(ctx, getPraticiensByProfession, profession)
 	if err != nil {
 		return nil, err
 	}

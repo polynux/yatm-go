@@ -1,8 +1,8 @@
 <!-- templates/home.html -->
 {{ define "title" }}Yet Another Trans Map{{ end }}
 {{ define "content" }}
-<div class="container">
-    <div class="flex gap-2">
+<div class="container mx-auto">
+    <div class="flex flex-col lg:flex-row gap-2">
         <div class="flex flex-col gap-4 basis-2/3">
             <div class="flex items-center gap-2">
                 {{svg "map" ""}}
@@ -14,7 +14,7 @@
             <div class="w-full h-[300px] bg-gray-200 rounded-md"></div>
         </div>
         <div class="flex flex-col gap-4 basis-1/3">
-            <div class="flex flex-col gap-2">
+            <div class="flex flex-col gap-2" id="doctors">
                 {{template "doctorList" .}}
             </div>
         </div>
