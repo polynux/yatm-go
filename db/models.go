@@ -9,12 +9,12 @@ import (
 )
 
 type Praticien struct {
-	ID          interface{}
+	ID          int64
 	Name        string
 	Firstname   string
 	Address     string
 	Zip         string
 	City        string
 	Description sql.NullString
-	Profession  int64
+	Profession  string
 }

@@ -1,13 +1,21 @@
 package handlers
 
 import (
-  "net/http"
-  "github.com/labstack/echo/v4"
-  "polynux/yatm/utils"
+	"context"
+	"net/http"
+	"polynux/yatm/utils"
+
+	"github.com/labstack/echo/v4"
 )
 
 func HomeHandler(c echo.Context) error {
-  doctors := utils.GetDoctors()
+  ctx := context.Background()
+
+  doctors, err := utils.Q.GetPraticiens(ctx)
+  if err != nil {
+    return err
+  }
+
   data := map[string]interface{}{
     "Title": "Trouvez un docteur près de chez vous",
     "Doctors": doctors,

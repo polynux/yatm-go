@@ -9,10 +9,11 @@ import (
 	"github.com/joho/godotenv"
 	_ "github.com/tursodatabase/libsql-client-go/libsql"
 
-	_ "polynux/yatm/db"
+	"polynux/yatm/db"
 )
 
-var ddb *sql.DB
+var DB *sql.DB
+var Q *db.Queries
 
 func Connect() *sql.DB {
   dbUrl := GetEnv("DB_URL")
@@ -36,11 +37,10 @@ func Connect() *sql.DB {
 }
 
 func init() {
-  ctx := context.Background()
   LoadEnv()
-  ddb = Connect()
-  CreateTables(ctx)
-
+  DB = Connect()
+  Q = db.New(DB)
+  CreateTables(context.Background())
 }
 
 func LoadSql() string {
@@ -55,12 +55,11 @@ func LoadSql() string {
 func CreateTables(ctx context.Context) {
   schema := LoadSql()
 
-  res, err := ddb.ExecContext(ctx, schema)
+  _, err := DB.ExecContext(ctx, schema)
   if err != nil {
     log.Fatalf("Error creating Praticiens table: %v", err)
     os.Exit(1)
   }
-  log.Printf("Tables created: %v", res)
 }
 
 func LoadEnv() {

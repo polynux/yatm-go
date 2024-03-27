@@ -13,7 +13,7 @@ const getPraticien = `-- name: GetPraticien :one
 SELECT id, name, firstname, address, zip, city, description, profession FROM Praticiens WHERE id = ?
 `
 
-func (q *Queries) GetPraticien(ctx context.Context, id interface{}) (Praticien, error) {
+func (q *Queries) GetPraticien(ctx context.Context, id int64) (Praticien, error) {
 	row := q.db.QueryRowContext(ctx, getPraticien, id)
 	var i Praticien
 	err := row.Scan(

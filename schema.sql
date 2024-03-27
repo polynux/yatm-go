@@ -6,5 +6,5 @@ CREATE TABLE IF NOT EXISTS Praticiens (
     zip TEXT NOT NULL,
     city TEXT NOT NULL,
     description TEXT,
-    profession INTEGER NOT NULL
+    profession TEXT NOT NULL
 );
