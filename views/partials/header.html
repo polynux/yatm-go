@@ -8,24 +8,52 @@
                 Home
             </a>
             <div class="flex items-center space-x-4">
-                <form class="flex items-center space-x-2">
+                <label class="input input-bordered flex items-center gap-2">
+                    <input type="text" class="grow" placeholder="Recherche" />
                     {{svg "magnifying-glass" "w-6 h-6 text-gray-500"}}
-                    <input type="search"
-                        class="flex h-10 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-gray-500 file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 w-48 placeholder-gray-500 "
-                        placeholder="Rechercher" />
-                </form>
-                <button
-                    class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 shrink-0"
-                    type="button" id="radix-:R1rdafnnja:" aria-haspopup="menu" aria-expanded="false"
-                    data-state="closed">
-                    {{svg "funnel" "w-4 h-4 mr-2"}}
-                    Filter
-                </button>
-                <button type="button" aria-pressed="false" data-state="off"
-                    class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors hover:bg-muted hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-accent data-[state=on]:text-accent-foreground bg-transparent h-10 px-3 ml-4"
-                    aria-label="Toggle dark mode">
-                    {{svg "sun" "w-5 h-5 text-yellow-400"}}
-                </button>
+                </label>
+                <div class="dropdown">
+                    <div tabindex="0" role="button"
+                        class="btn btn-outline border-gray-400 hover:bg-gray-500 hover:border-gray-500">{{svg "funnel"
+                        "w-4 h-4 mr-2"}} Filtrer</div>
+                    <div tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                        <div class="menu-title">
+                            <p>Filtrer par :</p>
+                        </div>
+                        <ul class="menu py-2">
+                            <li>
+                                <a href="#" class="menu-item">Nom</a>
+                            </li>
+                            <li>
+                                <a href="#" class="menu-item">Distance</a>
+                            </li>
+                            <li>
+                                <a href="#" class="menu-item">Profession</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <label class="swap swap-rotate">
+                    <input type="checkbox" class="theme-controller" value="dark" />
+                    {{svg "sun" "w-8 h-8 text-yellow-400 swap-off"}}
+                    {{svg "moon" "w-8 h-8 text-blue-400 swap-on"}}
+                </label>
+                <script>
+                    document.querySelector('.theme-controller').addEventListener('change', function (evt) {
+                        const theme = evt.target.checked ? 'dark' : 'light';
+                        localStorage.setItem('theme', theme);
+                    });
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const theme = localStorage.getItem('theme');
+                        const themeController = document.querySelector('.theme-controller');
+
+                        if (theme === 'dark') {
+                            themeController.checked = true;
+                        } else {
+                            themeController.checked = false;
+                        }
+                    });
+                </script>
             </div>
         </nav>
     </div>

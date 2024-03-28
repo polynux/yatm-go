@@ -1,7 +1,7 @@
 {{define "doctorList"}}
 
 {{range .Doctors}}
-<div class="rounded-lg border bg-card text-card-foreground shadow-sm" data-v0-t="card">
+<div class="rounded-lg border bg-card text-card-foreground shadow-sm">
   <div class="flex-col space-y-1.5 flex items-center gap-4 p-4">
     <div class="flex items-center gap-2">
       <div class="grid gap-1">
@@ -28,8 +28,8 @@
 {{end}}
 
 {{if gt (len .Doctors) 0}}
-<div class="flex flex-col items-center mt-4" id="load-more-doctors">
-<button class="btn btn-primary" hx-get="/?page={{.Page}}" hx-target="#load-more-doctors" hx-swap="outerHTML" hx-indicator=".loading-spinner" hx-select="#doctors > div">Voir plus</button>
+<div class="flex flex-col items-center" id="load-more-doctors">
+<button class="btn btn-neutral btn-block" hx-get="/?page={{.Page}}" hx-target="#load-more-doctors" hx-swap="outerHTML" hx-indicator=".loading-spinner" hx-select="#doctors > div">Voir plus</button>
   <span class="loading loading-spinner loading-lg htmx-indicator"></span>
 </div>
 {{end}}
