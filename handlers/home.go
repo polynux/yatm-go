@@ -59,6 +59,7 @@ func HomeHandler(c echo.Context) error {
     "Doctors": doctors,
     "Page": page + 1,
     "Professions": professions,
+    "Limit": limit,
   }
 
   return c.Render(http.StatusOK, "home.html", data)

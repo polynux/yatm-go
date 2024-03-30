@@ -28,6 +28,7 @@ func main() {
 	e.Static("/static", "static")
 
 	e.GET("/", handlers.HomeHandler)
+	e.GET("/search", handlers.SearchHandler)
 
 	e.Logger.Fatal(e.Start(":3000"))
 }

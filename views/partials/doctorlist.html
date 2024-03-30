@@ -1,5 +1,17 @@
 {{define "doctorList"}}
 
+{{if and (eq .Page 1) (eq (len .Doctors) 0)}}
+<div class="rounded-lg border bg-card text-card-foreground shadow-sm">
+  <div class="flex-col space-y-1.5 flex items-center gap-4 p-4">
+    <div class="flex items-center gap-2">
+      <div class="grid gap-1">
+        <h3 class="font-semibold">Aucun médecin trouvé</h3>
+      </div>
+    </div>
+  </div>
+</div>
+{{end}}
+
 {{range .Doctors}}
 <div class="rounded-lg border bg-card text-card-foreground shadow-sm">
   <div class="flex-col space-y-1.5 flex items-center gap-4 p-4">

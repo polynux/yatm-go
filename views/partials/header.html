@@ -9,7 +9,7 @@
             </a>
             <div class="flex items-center space-x-4">
                 <label class="input input-bordered flex items-center gap-2">
-                    <input type="text" class="grow" placeholder="Recherche" />
+                    <input type="text" name="search" class="grow" placeholder="Recherche" hx-get="/search" hx-target="#doctors" hx-select="#doctors" hx-swap="outerHTML">
                     {{svg "magnifying-glass" "w-6 h-6 text-gray-500"}}
                 </label>
                 <div class="dropdown">
