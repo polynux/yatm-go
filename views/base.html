@@ -2,14 +2,21 @@
 <!-- templates/base.html -->
 <!DOCTYPE html>
 <html data-theme="light">
+
 <head>
     <title>{{ template "title" . }}</title>
     <link rel="stylesheet" href="/static/style.css">
     <script src="https://unpkg.com/htmx.org@1.9.11"></script>
-    <meta og:title={{ template "title" . }}>
-    <meta og:description="Cherchez des médecins trans-friendly dans votre région">
-    <meta og:image="https://i0.wp.com/www.transgendermap.com/wp-content/uploads/sites/7/2019/04/transgender-map-transparent.png">
+    <meta property="og:title" content="{{ template " title" . }}" />
+    <meta property="og:locale" content="fr_FR">
+    <meta property="og:description" content="Cherchez des médecins trans-friendly dans votre région">
+    <meta property="og:url" content="https://yatm.grossebeut.eu">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="{{ template " title" . }}">
+    <meta property="og:image"
+        content="https://i0.wp.com/www.transgendermap.com/wp-content/uploads/sites/7/2019/04/transgender-map-transparent.png">
 </head>
+
 <body class="bg-gray-50">
     {{ template "header" . }}
 
@@ -19,5 +26,6 @@
 
     {{ template "footer" . }}
 </body>
+
 </html>
 {{end}}
