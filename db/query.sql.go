@@ -10,7 +10,7 @@ import (
 )
 
 const getAllPraticiens = `-- name: GetAllPraticiens :many
-SELECT id, name, firstname, address, zip, city, description, profession FROM Praticiens
+SELECT id, name, firstname, address, zip, city, description, profession FROM Praticiens ORDER BY name
 `
 
 func (q *Queries) GetAllPraticiens(ctx context.Context) ([]Praticien, error) {
@@ -93,7 +93,7 @@ func (q *Queries) GetPraticien(ctx context.Context, id int64) (Praticien, error)
 }
 
 const getPraticiens = `-- name: GetPraticiens :many
-SELECT id, name, firstname, address, zip, city, description, profession FROM Praticiens LIMIT ? OFFSET ?
+SELECT id, name, firstname, address, zip, city, description, profession FROM Praticiens ORDER BY name LIMIT ? OFFSET ?
 `
 
 type GetPraticiensParams struct {
@@ -134,11 +134,17 @@ func (q *Queries) GetPraticiens(ctx context.Context, arg GetPraticiensParams) ([
 }
 
 const getPraticiensByProfession = `-- name: GetPraticiensByProfession :many
-SELECT id, name, firstname, address, zip, city, description, profession FROM Praticiens WHERE profession = ?
+SELECT id, name, firstname, address, zip, city, description, profession FROM Praticiens WHERE profession = ? ORDER BY name LIMIT ? OFFSET ?
 `
 
-func (q *Queries) GetPraticiensByProfession(ctx context.Context, profession string) ([]Praticien, error) {
-	rows, err := q.db.QueryContext(ctx, getPraticiensByProfession, profession)
+type GetPraticiensByProfessionParams struct {
+	Profession string
+	Limit      int64
+	Offset     int64
+}
+
+func (q *Queries) GetPraticiensByProfession(ctx context.Context, arg GetPraticiensByProfessionParams) ([]Praticien, error) {
+	rows, err := q.db.QueryContext(ctx, getPraticiensByProfession, arg.Profession, arg.Limit, arg.Offset)
 	if err != nil {
 		return nil, err
 	}

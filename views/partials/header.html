@@ -16,19 +16,23 @@
                     <div tabindex="0" role="button"
                         class="btn btn-outline border-gray-400 hover:bg-gray-500 hover:border-gray-500">{{svg "funnel"
                         "w-4 h-4 mr-2"}} Filtrer</div>
-                    <div tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                    <div tabindex="0" class="dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                         <div class="menu-title">
                             <p>Filtrer par :</p>
                         </div>
-                        <ul class="menu py-2">
+                        <ul class="py-1">
                             <li>
-                                <a href="#" class="menu-item">Nom</a>
-                            </li>
-                            <li>
-                                <a href="#" class="menu-item">Distance</a>
-                            </li>
-                            <li>
-                                <a href="#" class="menu-item">Profession</a>
+                                <label class="form-control w-full max-w-xs">
+                                    <div class="label">
+                                        <span class="label-text">Profession</span>
+                                    </div>
+                                    <select name="profession" class="select select-bordered w-full max-w-xs" hx-get="/" hx-target="#doctors" hx-select="#doctors" hx-swap="outerHTML">
+                                        <option value="">Toutes les professions</option>
+                                        {{range .Professions}}
+                                        <option value="{{.}}">{{.}}</option>
+                                        {{end}}
+                                    </select>
+                                </label>
                             </li>
                         </ul>
                     </div>

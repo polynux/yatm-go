@@ -10,20 +10,46 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+type Params struct {
+  Page int
+  Profession string
+}
+
+const limit = 20
+
+func GetPraticiens(ctx context.Context, params Params) ([]db.Praticien, error) {
+  if params.Profession != "" {
+    dbParams := db.GetPraticiensByProfessionParams{
+      Profession: params.Profession,
+      Limit: limit,
+      Offset: int64(params.Page * limit),
+    }
+    return utils.Q.GetPraticiensByProfession(ctx, dbParams)
+  }
+
+  return utils.Q.GetPraticiens(ctx, db.GetPraticiensParams{
+    Limit: limit,
+    Offset: int64(params.Page * limit),
+  })
+}
+
 func HomeHandler(c echo.Context) error {
   ctx := context.Background()
 
   page, _ := strconv.Atoi(c.QueryParam("page"))
+  profession := c.QueryParam("profession")
 
-  limit := 20
-  offset := page * limit
-
-  params := db.GetPraticiensParams{
-    Limit: int64(limit),
-    Offset: int64(offset),
+  params := Params{
+    Page: page,
+    Profession: profession,
   }
 
-  doctors, err := utils.Q.GetPraticiens(ctx, params)
+  doctors, err := GetPraticiens(ctx, params)
+  if err != nil {
+    return err
+  }
+
+  professions, err := utils.Q.GetAllProfessions(ctx)
   if err != nil {
     return err
   }
@@ -32,6 +58,7 @@ func HomeHandler(c echo.Context) error {
     "Title": "Trouvez un docteur près de chez vous",
     "Doctors": doctors,
     "Page": page + 1,
+    "Professions": professions,
   }
 
   return c.Render(http.StatusOK, "home.html", data)

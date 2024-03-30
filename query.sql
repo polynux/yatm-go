@@ -2,13 +2,13 @@
 SELECT * FROM Praticiens WHERE id = ?;
 
 -- name: GetAllPraticiens :many
-SELECT * FROM Praticiens;
+SELECT * FROM Praticiens ORDER BY name;
 
 -- name: GetPraticiens :many
-SELECT * FROM Praticiens LIMIT ? OFFSET ?;
+SELECT * FROM Praticiens ORDER BY name LIMIT ? OFFSET ?;
 
 -- name: GetPraticiensByProfession :many
-SELECT * FROM Praticiens WHERE profession = ?;
+SELECT * FROM Praticiens WHERE profession = ? ORDER BY name LIMIT ? OFFSET ?;
 
 -- name: GetAllProfessions :many
 SELECT DISTINCT profession FROM Praticiens;
