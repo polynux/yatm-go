@@ -6,6 +6,9 @@
     <title>{{ template "title" . }}</title>
     <link rel="stylesheet" href="/static/style.css">
     <script src="https://unpkg.com/htmx.org@1.9.11"></script>
+    <meta og:title={{ template "title" . }}>
+    <meta og:description="Cherchez des médecins trans-friendly dans votre région">
+    <meta og:image="https://i0.wp.com/www.transgendermap.com/wp-content/uploads/sites/7/2019/04/transgender-map-transparent.png">
 </head>
 <body class="bg-gray-50">
     {{ template "header" . }}
