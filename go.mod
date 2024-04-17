@@ -13,6 +13,7 @@ require (
 	github.com/lithammer/fuzzysearch v1.1.8 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
+	github.com/tursodatabase/go-libsql v0.0.0-20240410174707-5f61d1397cfa // indirect
 	github.com/tursodatabase/libsql-client-go v0.0.0-20240327144008-dd14b387afb3 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasttemplate v1.2.2 // indirect

@@ -5,9 +5,11 @@ import (
 	"database/sql"
 	"log"
 	"os"
+	"path/filepath"
 
 	"github.com/joho/godotenv"
-	_ "github.com/tursodatabase/libsql-client-go/libsql"
+	"github.com/tursodatabase/go-libsql"
+	_ "github.com/tursodatabase/go-libsql"
 
 	"polynux/yatm/db"
 )
@@ -16,6 +18,7 @@ var DB *sql.DB
 var Q *db.Queries
 
 func Connect() *sql.DB {
+  dbName := "local.db"
   dbUrl := GetEnv("DB_URL")
   dbToken := GetEnv("DB_TOKEN")
   if dbUrl == "" {
@@ -26,12 +29,21 @@ func Connect() *sql.DB {
     log.Fatal("DB_TOKEN is not set")
     os.Exit(1)
   }
-
-  db, err := sql.Open("libsql", dbUrl + "?authToken=" + dbToken)
+  dir, err := os.MkdirTemp("", "libsql-*")
   if err != nil {
-    log.Fatalf("Error opening database: %v", err)
+    log.Fatalf("Error creating temp directory: %v", err)
     os.Exit(1)
   }
+
+  dbPath := filepath.Join(dir, dbName)
+
+  connector, err := libsql.NewEmbeddedReplicaConnector(dbPath, dbUrl, libsql.WithAuthToken(dbToken))
+  if err != nil {
+    log.Fatalf("Error creating connector: %v", err)
+    os.Exit(1)
+  }
+
+  db := sql.OpenDB(connector)
 
   return db
 }
